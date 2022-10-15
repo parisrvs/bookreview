@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>Register</title>    
+{% endblock %}
+{% block style %}
+    <style>
+        #register {padding: 20px; text-align: center;}
+
+    </style>
+{% endblock %}
+
+
+{% block body %}
+<div id="register">
+    <form action="{{ url_for('register') }}" method="POST">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="name"><span class="required">*</span>Type your Name</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Type your Mobile Number</label>
+                    <input type="text" class="form-control" id="mobile" name="mobile">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="username"><span class="required">*</span>Select a Username</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="email"><span class="required">*</span>Type your Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="password"><span class="required">*</span>Type a Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="password1"><span class="required">*</span>Re-Type Password</label>
+                    <input type="password" class="form-control" id="password1" name="password1">
+                </div>                
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <div class="error">
+        {% if reg_error %}
+            {{ reg_error }}
+        {% else %}
+            <br>
+        {% endif %}
+    </div>
+    <a href="{{ url_for('login') }}">Login</a>&nbsp;&nbsp;
+    <a href="{{ url_for('forgotpassword') }}">Forgot Pasword</a>
+</div>
+{% endblock %}

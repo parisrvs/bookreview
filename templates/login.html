@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>Login</title>    
+{% endblock %}
+{% block style %}
+    <style>
+        #login {padding: 50px; text-align: center;}
+
+    </style>
+{% endblock %}
+
+
+{% block body %}    
+    <div id="login" class="row">
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-4">
+            <form action="{{ url_for('login') }}" method="POST">
+                <div class="form-group">
+                  <label for="username"><span class="required">*</span>Username or Email Address</label>
+                  <input type="text" class="form-control" id="username" name="username" autofocus placeholder="username or emai">
+                </div>
+                <div class="form-group">
+                  <label for="password"><span class="required">*</span>Password</label>
+                  <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <div class="error">
+                {% if login_error %}
+                    {{ login_error }}
+                {% else %}
+                    <br>
+                {% endif %}
+            </div>            
+            <a href="{{ url_for('register') }}">Register</a>&nbsp;&nbsp;
+            <a href="{{ url_for('forgotpassword') }}">Forgot Pasword</a>
+        </div>
+        <div class="col-lg-4">
+
+        </div>        
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>{{ book[2] }}</title>    
+{% endblock %}
+{% block style %}
+    <style>
+        #book {padding: 10px; text-align: center;}
+        .keyword {color: saddlebrown;}
+    </style>
+{% endblock %}
+
+
+{% block body %}
+<div class="row" id="book">
+    <div class="col-lg-4">
+        <span class="keyword">ISBN</span> - {{ book[1] }}<br>
+        <span class="keyword">TITLE</span> - {{ book[2] }}<br>
+        <span class="keyword">AUTHOR</span> - {{ book[3] }}<br>
+        <span class="keyword">YEAR</span> - {{ book[4] }}<br><br>
+        {% if user_review %}
+            Your Review
+            <div>
+                {{ user_review[2] }}
+            </div>
+            <div>
+                <span>Rating: {{ user_review[1] }}</span>
+            </div>
+            <a href="{{ url_for('editreview', id=book[0]) }}">Edit</a>&nbsp;&nbsp;<a href="{{ url_for('deletereview', id=book[0]) }}">Delete</a>
+        {% else %}
+        <form action="{{ url_for('book', id=book[0]) }}" method="POST">
+            <div class="form-group">
+                <label for="comment">Write Review</label>
+                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="rating">Select Rating</label>
+                <select class="form-control" id="rating" name="rating">
+                  <option disabled selected value="Rating">Rating</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="error">
+            {% if review_error %}
+                {{ review_error }}
+            {% else %}
+                <br>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-lg-4">
+        {% if reviews == [] %}
+            <p>No Reviews</p>
+        {% else %}
+            Other Reviews:
+            <hr>
+            {% for review in reviews %}
+                <div>
+                    {{ review[2] }}                    
+                </div>
+                <div>
+                    <span>Rating: {{ review[1] }} by {{ review[4] }}</span>
+                </div>
+                <hr>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col-lg-4">
+        Goodreads
+        <hr>
+        {% if goodread %}
+            <div>
+                Ratings Count: {{ goodread['ratings_count'] }}
+            </div>
+            <div>
+                Average Rating: {{ goodread['average_rating'] }}
+            </div>
+        {% else %}
+            <div>
+                No Reviews
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

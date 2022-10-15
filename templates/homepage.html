@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>Homepage</title>    
+{% endblock %}
+{% block style %}
+    <style>
+        #search {padding: 50px; text-align: center;}
+        #results li {text-align: left; padding: 10px;}
+        .keyword {color: saddlebrown;}
+        #details {font-weight: bold;}
+    </style>
+{% endblock %}
+
+
+{% block body %}
+<div class="row" id="search">
+    <div class="col-lg-3">
+        <form action="{{ url_for('index') }}" method="POST">
+            <div class="form-group">
+              <label for="keyword"><span class="required">*</span>ISBN / Title / Author</label>
+              <input type="text" class="form-control" id="keyword" autocomplete="off" autofocus placeholder="ISBN or Title or Author" name="keyword">
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="searchtype" value="isbn">ISBN</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="searchtype" value="title">Book Title</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="searchtype" value="author">Author</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div class="error">
+            {% if search_error %}
+                {{ search_error }}
+            {% else %}
+                <br>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-lg-9" id="results">
+        {% if books %}
+        <ol>
+            {% for book in books %}
+                <li><span class="keyword">ISBN</span> - {{ book[1] }}, <span class="keyword">TITLE</span> - {{ book[2] }}, <span class="keyword">AUTHOR</span> - {{ book[3] }}, <span class="keyword">YEAR</span> - {{ book[4] }} <span id="details"><a href="{{ url_for('book', id=book[0]) }}">View Details</a></span></li>
+            {% endfor %}
+        </ol>
+        {% endif %}        
+    </div>
+</div>
+{% endblock %}

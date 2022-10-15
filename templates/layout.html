@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {% block title %}{% endblock %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {font-style: italic; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;}
+            #header > div {padding: 20px; text-align: center;}
+            #header img {width: 100%;}
+            #header h1 {color: brown;}
+            .error, .required {color: red;}
+        </style>
+        {% block style %}{% endblock %}
+    </head>
+    
+    <body>
+        <div id="header">
+            <div class="row">
+                <div class="col-lg-2">
+                    <img src="/static/cs50.jpg" class="img-thumbnail">
+                </div>
+                <div class="col-lg-8">
+                    <h1>Book Review</h1>
+                    <h4>{{ username }}</h4>
+                </div>
+                <div class="col-lg-2">
+                    {% if username %}
+                    <a href="{{ url_for('logout') }}">Logout</a>&nbsp;&nbsp;
+                    <a href="{{ url_for('change_password') }}">Change Pasword</a><br>
+                    <a href="{{ url_for('index') }}">Homepage</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <hr><br>
+        {% block body %}{% endblock %}
+    </body>
+</html>
